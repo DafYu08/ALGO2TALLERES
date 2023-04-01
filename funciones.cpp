@@ -136,5 +136,19 @@ bool integrantes_repetidos(vector<Mail> s) {
 
 // Ejercicio 11
 map<set<LU>, Mail> entregas_finales(vector<Mail> s) {
-  return map<set<LU>, Mail>();
+    map<set<LU>, Mail> res;
+    set<set<LU>> grupos;
+    for (Mail m : s){
+        grupos.insert(m.libretas()); // creamos un conjunto con todos los grupos de la cadena de mails (grupo = cjto de LUs)
+    }
+    for(set<LU> grupo: grupos){
+        for(Mail m: s){
+            if (m.libretas() == grupo){
+                if(m.adjunto()){
+                    res[grupo] = m;
+                }
+            }
+        }
+    }
+  return res;
 }
